@@ -1,21 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAppSelector } from "../../hooks/redux";
 import { ICrypto } from "../../models/ICrypto";
-import { checkPortfolioItem } from "../../utils/checkPortfoli";
+import AddCryptoBlock from "../AddCryptoBlock";
+import Dialog from "../Dialog";
 import CryptoListItem from "./CryptoListItem";
 import { CryptoTable, CryptoTableBody, CryptoTableHead, CryptoTableWrap, CryptoTableRow } from "./style";
 
+type IDialogOptions = {
+  isOpen: boolean,
+  crypto: ICrypto,
+}
 
+const initialDialogOptions = {
+  isOpen: false,
+  crypto: {
+    id: '',
+    rank: '',
+    symbol: '',
+    name: 'криптовалюты',
+    supply: '',
+    maxSupply: '',
+    marketCapUsd: '',
+    volumeUsd24Hr: '',
+    priceUsd: '',
+    changePercent24Hr: '',
+    vwap24Hr: ''
+  },
+}
 
 const CryptoList: React.FC = () => {
-  const { cryptoList, isLoading, portfolio } = useAppSelector(state => state.cryptoReducer);
+  const { cryptoList, isLoading } = useAppSelector(state => state.cryptoReducer);
+  const [dialogOptions, setDialogOptions] = useState<IDialogOptions>(initialDialogOptions);
+
+  const dialogCryptoAddToggle = () => {
+    setDialogOptions({
+      ...dialogOptions,
+      isOpen: !dialogOptions.isOpen,
+      crypto: { ...initialDialogOptions.crypto },
+    });
+  }
+
+  const dialogCryptoAdd = (cryptoInfo: ICrypto) => {
+    setDialogOptions({
+      ...dialogOptions,
+      isOpen: !dialogOptions.isOpen,
+      crypto: cryptoInfo
+    });
+  }
 
   const renderCryptoTableBody = (list: ICrypto[]) => (
     list.map(item =>
       <CryptoListItem
         key={item.id}
         crypto={item}
-        isPortfolioItem={checkPortfolioItem(portfolio.list, item.id)}
+        onCryptoAdd={dialogCryptoAdd}
       />
     )
   )
@@ -36,7 +74,11 @@ const CryptoList: React.FC = () => {
             {renderCryptoTableBody(cryptoList)}
           </CryptoTableBody>
         </CryptoTable>
+
       }
+      <Dialog dialogName={`Добавление ${dialogOptions.crypto.name}`} isOpen={dialogOptions.isOpen} onClose={dialogCryptoAddToggle}>
+        <AddCryptoBlock cryptoInfo={dialogOptions.crypto} onClose={dialogCryptoAddToggle} />
+      </Dialog>
     </CryptoTableWrap >
   )
 }
