@@ -6,7 +6,7 @@ import GlobalStyle from './styles/global';
 import App from './components/App';
 import { Provider } from 'react-redux';
 import { setupStore } from './store';
-
+import { BrowserRouter } from 'react-router-dom';
 const store = setupStore();
 
 const root = ReactDOM.createRoot(
@@ -15,9 +15,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <GlobalStyle />
-      <App />
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <GlobalStyle />
+        <App />
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );
