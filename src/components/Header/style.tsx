@@ -46,3 +46,25 @@ export const HeaderIconButton = styled.button`
   }
 
 `;
+
+export const TopRate = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 5px 20px;
+  background-color: #FFF6BF;
+  border-radius: 10px;
+  margin: 0 10px;
+  
+  span {
+    text-align: left;
+    font-size: 0.8rem;
+    color: #818181;
+    margin-bottom:5px;
+  }
+  
+  b{
+    text-align: center;
+    font-size: 1rem;
+    color: #000000;
+  }
+`
