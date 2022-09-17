@@ -6,7 +6,11 @@ import { HeaderColumn, HeaderIconButton, HeaderWrap, TopRate } from "./style";
 const round = (value: number, charsAfter: number): number => Math.round(value * Math.pow(10, charsAfter)) / Math.pow(10, charsAfter);
 const charsAfterСomma = 3
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  onPortfolioOpen: () => void,
+}
+
+const Header: React.FC<HeaderProps> = ({ onPortfolioOpen }) => {
   const { cryptoTopRate } = useAppSelector(state => state.cryptoReducer);
 
   const renderTopRate = () => cryptoTopRate.map(item =>
@@ -23,7 +27,7 @@ const Header: React.FC = () => {
       </HeaderColumn>
       <HeaderColumn>
         <p>134,32 USD +2,38 (1,80 %)</p>
-        <HeaderIconButton title="Портфель">
+        <HeaderIconButton title="Портфель" onClick={onPortfolioOpen}>
           <PortfolioIcon />
         </HeaderIconButton>
       </HeaderColumn>

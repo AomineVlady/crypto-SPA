@@ -16,5 +16,6 @@ export default createGlobalStyle`
     min-height: 100vh;
     width: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
   }
 `;
