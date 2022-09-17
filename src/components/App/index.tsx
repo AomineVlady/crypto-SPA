@@ -6,6 +6,7 @@ import CryptoDetails from '../CryptoDetails';
 import CryptoList from '../CryptoList';
 import Dialog from '../Dialog';
 import Header from '../Header';
+import Portfolio from '../Portfolio';
 import { AppContainer, Main } from './style';
 
 const App: React.FC = () => {
@@ -30,7 +31,7 @@ const App: React.FC = () => {
         </Routes>
       </Main>
       <Dialog dialogName='Портфель' isOpen={isPortfolioDialog} onClose={portfolioDialogToggle}>
-        <p>Portfolio</p>
+        <Portfolio />
       </Dialog>
     </AppContainer>
   );
