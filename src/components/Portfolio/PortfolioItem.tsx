@@ -2,8 +2,8 @@ import React from 'react';
 import { useAppDispatch } from '../../hooks/redux';
 import { ICryptoPortfolioItem } from '../../models/ICryptoPortfolio';
 import { CryptoSlice } from '../../store/reducers/crypto';
-import CrossIcon from '../Icons/CrossIcon';
-import { PortfolioItemButton, PortfolioItemWrapp } from './style';
+import MinusIcon from '../Icons/MinusIcon';
+import { PortfolioItemButton, PortfolioItemInfo, PortfolioItemWrapp } from './style';
 
 interface PortfolioItemProps {
   info: ICryptoPortfolioItem,
@@ -22,11 +22,11 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({ info }) => {
 
   return (
     <PortfolioItemWrapp>
-      <div>
-        <p>{crypto.name}</p>
-        <span>{cryptoStock}$</span>
-      </div>
-      <PortfolioItemButton onClick={onPortfolioItemRemove}><CrossIcon /></PortfolioItemButton>
+      <PortfolioItemInfo>
+        <p className='portfolio-crypto-name'>{crypto.name}</p>
+        <span className='portfolio-crypto-price'>{cryptoStock}$</span>
+      </PortfolioItemInfo>
+      <PortfolioItemButton onClick={onPortfolioItemRemove} title="Убрать из портфеля"><MinusIcon /></PortfolioItemButton>
     </PortfolioItemWrapp>
   )
 }

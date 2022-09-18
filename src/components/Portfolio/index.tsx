@@ -10,7 +10,7 @@ const Portfolio: React.FC = () => {
 
   return (
     <PortfolioContainer>
-      {list.length ? renderPortfolioList() : <p>Ваш портфель пока что пуст...</p>}
+      {list.length ? renderPortfolioList() : <p className='empty__message'>Ваш портфель пока что пуст...</p>}
     </PortfolioContainer>
   )
 }

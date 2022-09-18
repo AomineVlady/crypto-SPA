@@ -15,7 +15,6 @@ export const AppContainer = styled.div`
 export const Main = styled.div`
   min-height: 100%;
   width: 100%;
-  min-block-size: 100%;
   flex: 1;
 
   background-color: #fff;

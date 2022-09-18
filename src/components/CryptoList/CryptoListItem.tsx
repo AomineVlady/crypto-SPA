@@ -31,7 +31,7 @@ const CryptoListItem: React.FC<CryptoItemProps> = ({ crypto, onCryptoAdd }) => {
       <td>{crypto.rank}</td>
       <td>{crypto.name}</td>
       <td>{crypto.priceUsd}$</td>
-      <td><TableAddButton onClick={onAddToPortfolioHandler}><PlusIcon /></TableAddButton></td>
+      <td><TableAddButton onClick={onAddToPortfolioHandler} title="Добавить в портфель"><PlusIcon /></TableAddButton></td>
     </CryptoTableRow>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import CrossIcon from '../Icons/CrossIcon';
 import { DialogBody, DialogCloseButton, DialogHeader, DialogOverlay, DialogWindow } from './style';
 
@@ -11,25 +11,12 @@ interface DialogProps {
 
 const Dialog: React.FC<DialogProps> = ({ isOpen, children, dialogName, onClose }) => {
 
-
-  const closeDialogByPressEsc = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      e.preventDefault();
-      onClose();
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener('keydown', closeDialogByPressEsc);
-    return () => document.removeEventListener('keydown', closeDialogByPressEsc);
-  })
-
   return isOpen ? (
     <DialogOverlay onClick={onClose}>
       <DialogWindow onClick={(e) => e.stopPropagation()}>
         <DialogHeader>
           <b>{dialogName}</b>
-          <DialogCloseButton onClick={onClose}><CrossIcon /></DialogCloseButton>
+          <DialogCloseButton onClick={onClose} title="Закрыть"><CrossIcon /></DialogCloseButton>
         </DialogHeader>
         <DialogBody>
           {children}

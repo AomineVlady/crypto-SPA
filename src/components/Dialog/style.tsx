@@ -31,7 +31,6 @@ export const DialogHeader = styled.div`
   justify-content: space-between;
   margin-bottom: 15px;
   padding: 5px;
-
   b{
     font-size: 1.2rem;
     margin-right: 10px;
