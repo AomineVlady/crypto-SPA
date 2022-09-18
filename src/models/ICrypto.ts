@@ -11,8 +11,3 @@ export interface ICrypto {
   changePercent24Hr: string;
   vwap24Hr: string;
 }
-
-export interface ICryptoFetch {
-  data: ICrypto[],
-  timestamp: number,
-}
