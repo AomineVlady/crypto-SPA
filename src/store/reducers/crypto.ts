@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICrypto } from "../../models/ICrypto"
 import { ICryptoDetail } from "../../models/ICryptoDetail";
 import { ICryptoPortfolioItem, IPortfolioState } from "../../models/ICryptoPortfolio"
+import { addCryptoToPortfolio, removePortfolioItem } from "../../utils/checkPortfoli";
 
 
 
@@ -78,7 +79,11 @@ export const CryptoSlice = createSlice({
     },
 
     addToPortfolio(state, action: PayloadAction<ICryptoPortfolioItem>) {
-      state.portfolio.list.push(action.payload)
+      state.portfolio.list = addCryptoToPortfolio(state.portfolio.list, action.payload);
+    },
+
+    removeFromPortfolio(state, action: PayloadAction<string>) {
+      state.portfolio.list = removePortfolioItem(state.portfolio.list, action.payload);
     }
   }
 })

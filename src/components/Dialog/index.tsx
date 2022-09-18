@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import CrossIcon from '../Icons/CrossIcon';
-import { DialogBody, DialogHeader, DialogOverlay, DialogWindow } from './style';
+import { DialogBody, DialogCloseButton, DialogHeader, DialogOverlay, DialogWindow } from './style';
 
 interface DialogProps {
   dialogName: string,
@@ -29,7 +29,7 @@ const Dialog: React.FC<DialogProps> = ({ isOpen, children, dialogName, onClose }
       <DialogWindow onClick={(e) => e.stopPropagation()}>
         <DialogHeader>
           <b>{dialogName}</b>
-          <button onClick={onClose}><CrossIcon /></button>
+          <DialogCloseButton onClick={onClose}><CrossIcon /></DialogCloseButton>
         </DialogHeader>
         <DialogBody>
           {children}

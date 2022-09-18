@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useAppDispatch } from '../../hooks/redux';
 import { ICrypto } from '../../models/ICrypto';
-import { CryptoInfoBlock, CryptoInfoBlockWrap } from './style';
+import { CryptoSlice } from '../../store/reducers/crypto';
+import { CryptoInfoBlock, CryptoInfoBlockButton, CryptoInfoBlockWrap } from './style';
 
 interface AddCryptoBlockProps {
   cryptoInfo: ICrypto,
@@ -9,14 +11,17 @@ interface AddCryptoBlockProps {
 
 const AddCryptoBlock: React.FC<AddCryptoBlockProps> = ({ cryptoInfo, onClose }) => {
   const [count, setCount] = useState<string>('0');
+  const dispatch = useAppDispatch();
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCount(e.target.value)
   }
 
   const onAddHandler = () => {
-    console.log(count)
-    console.log(cryptoInfo)
+    dispatch(CryptoSlice.actions.addToPortfolio({
+      crypto: cryptoInfo,
+      count: parseInt(count)
+    }))
     onClose();
   }
 
@@ -24,11 +29,14 @@ const AddCryptoBlock: React.FC<AddCryptoBlockProps> = ({ cryptoInfo, onClose }) 
     <CryptoInfoBlockWrap>
       <CryptoInfoBlock>
         <p>{cryptoInfo.name}</p>
-        <p>{cryptoInfo.priceUsd}</p>
-        <input type="number" value={count} onChange={onChangeHandler} />
+        <div className='add__input__field'>
+          <span>Кол-во</span>
+          <input type="number" className='add__crypto__input' value={count} onChange={onChangeHandler} />
+        </div>
+
       </CryptoInfoBlock>
 
-      <button onClick={onAddHandler}>Добавить</button>
+      <CryptoInfoBlockButton onClick={onAddHandler}>Добавить</CryptoInfoBlockButton>
     </CryptoInfoBlockWrap>
   )
 }

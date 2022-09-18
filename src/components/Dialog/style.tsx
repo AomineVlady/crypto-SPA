@@ -37,20 +37,25 @@ export const DialogHeader = styled.div`
     margin-right: 10px;
     padding: 5px 0;
   }
-
-  button{
-    border: none;
-    background-color: transparent;
-    border: 25px;
-    transition: background-color .3s ease;
-
-    cursor: pointer;
-    
-    &:hover{
-      background-color: #C3F8FF;
-    }
-  }
 `
 export const DialogBody = styled.div`
+
+`
+export const DialogCloseButton = styled.button`
+  border-radius: 25px;
+  padding: 7px 7px 5px 7px;
+  border: none;
+  background-color: transparent;
+  border: 25px;
+  transition: all .3s ease;
+
+  cursor: pointer;
   
+  &:hover{
+    background-color: #C3F8FF;
+  }
+
+  &:active{
+    transform: scale(1.1)
+  }
 `
