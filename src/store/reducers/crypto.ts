@@ -3,8 +3,9 @@ import { ICrypto } from "../../models/ICrypto"
 import { ICryptoDetail } from "../../models/ICryptoDetail";
 import { ICryptoPortfolioItem, IPortfolioState } from "../../models/ICryptoPortfolio"
 import { addCryptoToPortfolio, removePortfolioItem } from "../../utils/checkPortfoli";
+import { getLSData, setLSData } from "../../utils/localStorage";
 
-
+const PORTFOLIO_LIST = 'portfolio'
 
 interface ICryptoState {
   cryptoList: ICrypto[];
@@ -35,7 +36,7 @@ const initialState: ICryptoState = {
     history: []
   },
   portfolio: {
-    list: [],
+    list: getLSData(PORTFOLIO_LIST),
     isLoading: false,
     error: '',
   },
@@ -79,11 +80,15 @@ export const CryptoSlice = createSlice({
     },
 
     addToPortfolio(state, action: PayloadAction<ICryptoPortfolioItem>) {
-      state.portfolio.list = addCryptoToPortfolio(state.portfolio.list, action.payload);
+      const newPortfolioList = addCryptoToPortfolio(state.portfolio.list, action.payload);
+      state.portfolio.list = newPortfolioList;
+      setLSData(PORTFOLIO_LIST, newPortfolioList);
     },
 
     removeFromPortfolio(state, action: PayloadAction<string>) {
-      state.portfolio.list = removePortfolioItem(state.portfolio.list, action.payload);
+      const newPortfolioList = removePortfolioItem(state.portfolio.list, action.payload);
+      setLSData(PORTFOLIO_LIST, newPortfolioList);
+      state.portfolio.list = newPortfolioList
     }
   }
 })

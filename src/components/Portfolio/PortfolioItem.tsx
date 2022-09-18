@@ -14,7 +14,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({ info }) => {
   const { crypto, count } = info;
   const dispatch = useAppDispatch();
 
-  const onPortfolioItemRemove = () => {
+  const onPortfolioItemRemove = (): void => {
     dispatch(CryptoSlice.actions.removeFromPortfolio(crypto.id));
   }
 

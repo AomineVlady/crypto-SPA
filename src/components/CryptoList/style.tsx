@@ -21,21 +21,6 @@ export const CryptoTableHead = styled.thead`
   }
 `;
 
-export const CryptoTableBody = styled.tbody`
-  background-color: #FFF6BF;
-
-  tr{
-    cursor: pointer;
-    transition: all .3s ease;
-    &:hover{
-      background-color: #fff08f;
-    }
-  }
-  td{
-    border-radius: 15px;
-  }
-`;
-
 export const CryptoTableRow = styled.tr`
 
   th:nth-child(1), td:nth-child(1){
@@ -49,25 +34,51 @@ export const CryptoTableRow = styled.tr`
 
   th:nth-child(3), td:nth-child(3){
     width: 30%;
-    text-align: center;
   }
 
-  td,th{
+  td:not(:last-child),th{
     padding: 10px 30px;
   }
 `;
 
+
+export const CryptoTableBody = styled.tbody`
+  tr{
+    cursor: pointer;
+    transition: all .3s ease;
+    
+    &:hover{
+      border: 2px solid #000;
+       & td:not(:last-child){
+        background-color: #ffeb91;
+      }
+    }
+  }
+  td{
+    background-color: #FFF6BF;
+    border-radius: 15px;
+    transition: all .3s ease;
+
+    &:last-child{
+      background-color: #FFF;
+    }
+  }
+`;
+
 export const TableAddButton = styled.button`
-  padding: 5px 20px;
   font-size: 1.2rem;
   border: none;
   border-radius: 15px;
-  background-color: #FFF6BF;
-  transition: background-color .3s ease;
-  
+  background-color: #C3F8FF;
+  transition: all .3s ease;
+  padding: 5px 20px;
   cursor: pointer;
   
   &:hover{
     background-color: #ffdd76;
+  }
+
+  &:active{
+    transform: scale(.9);
   }
 `
