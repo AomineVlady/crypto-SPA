@@ -18,7 +18,7 @@ const AddCryptoBlock: React.FC<AddCryptoBlockProps> = ({ cryptoInfo, onClose }) 
   }
 
   const onAddHandler = () => {
-    const totalCount = parseInt(count);
+    const totalCount = parseFloat(count);
 
     if (totalCount > 0) {
       dispatch(CryptoSlice.actions.addToPortfolio({

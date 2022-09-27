@@ -20,6 +20,8 @@ const initialState: ICryptoState = {
   cryptoList: [],
   cryptoTopRate: [],
   cryptoDetail: {
+    isLoading: false,
+    error: '',
     crypto: {
       id: '',
       rank: '',
@@ -64,7 +66,7 @@ export const CryptoSlice = createSlice({
     },
 
     getCryptoDetailPending(state) {
-      state.portfolio.isLoading = true;
+      state.cryptoDetail.isLoading = true;
     },
 
     getCryptoDetailSuccess(state, action: PayloadAction<ICrypto>) {
@@ -72,7 +74,19 @@ export const CryptoSlice = createSlice({
     },
 
     getCryptoDetailFailure(state, action: PayloadAction<string>) {
-      state.cryptoDetail.crypto = { ...initialState.cryptoDetail.crypto }
+      state.cryptoDetail.error = action.payload
+    },
+
+    getCryptoHistoryPending(state) {
+      state.cryptoDetail.isLoading = true;
+    },
+
+    getCryptoHistorySuccess(state, action: PayloadAction<[]>) {
+      state.cryptoDetail.history = action.payload
+    },
+
+    getCryptoHistoryFailure(state, action: PayloadAction<string>) {
+      state.cryptoDetail.error = action.payload
     },
 
     clearCryptoDetailInfo(state) {
