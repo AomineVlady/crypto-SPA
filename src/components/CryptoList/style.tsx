@@ -1,8 +1,17 @@
 import styled from "styled-components";
+import { size } from '../../styles/global'
 
 export const CryptoTableWrap = styled.div`
   width: 100%;
   padding: 30px 50px;
+
+  @media (max-width: ${size.laptop}) {
+    padding: 15px;
+  }
+
+  @media (max-width: ${size.tablet}) {
+    padding: 0;
+  }
 `;
 
 export const CryptoTable = styled.table`
@@ -39,10 +48,37 @@ export const CryptoTableRow = styled.tr`
   td:not(:last-child),th{
     padding: 10px 30px;
   }
+
+  @media (max-width: ${size.laptop}) {
+    th{
+      font-size: .9rem;
+    }
+
+    td:not(:last-child),th{
+      padding: 8px 18px;
+    }
+  }
+
+  @media (max-width: ${size.tablet}) {
+    th{
+      font-size: .8rem;
+    }
+
+    td:not(:last-child),th{
+      padding: 5px 10px;
+    }
+
+    th:nth-child(3), td:nth-child(3){
+      max-width: 100px;
+      overflow: hidden;
+    }
+  }
 `;
 
 
 export const CryptoTableBody = styled.tbody`
+  font-size: 1rem;
+
   tr{
     cursor: pointer;
     transition: all .3s ease;
@@ -63,6 +99,12 @@ export const CryptoTableBody = styled.tbody`
       background-color: #FFF;
     }
   }
+
+  @media (max-width: ${size.laptop}) {
+    td{
+      font-size: 0.8rem;
+    }
+  }
 `;
 
 export const TableAddButton = styled.button`
@@ -81,4 +123,27 @@ export const TableAddButton = styled.button`
   &:active{
     transform: scale(.9);
   }
+
+  @media (max-width: ${size.laptop}) {
+    font-size: 0.8rem;
+    padding: 5px 15px 4px;
+    border-radius: 25px;
+
+    svg{
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  @media (max-width: ${size.tablet}) {
+    font-size: 0.6rem;
+    padding: 5px 5px 4px;
+    border-radius: 25px;
+
+    svg{
+      width: 12px;
+      height: 12px;
+    }
+  }
+
 `

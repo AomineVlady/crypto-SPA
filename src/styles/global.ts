@@ -19,3 +19,9 @@ export default createGlobalStyle`
     overflow-x: hidden;
   }
 `;
+
+export const size = {
+  mobileM: '375px',
+  tablet: '768px',
+  laptop: '1024px',
+}
