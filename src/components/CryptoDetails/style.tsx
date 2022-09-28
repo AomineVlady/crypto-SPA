@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const DetailsCpntainer = styled.div`
-    .back-to-main-anchor{
+  .back-to-main-anchor{
     margin-top: 50px;
     text-decoration: none;
     background-color: #ffeea3;
@@ -91,4 +91,8 @@ export const CryptoDetailsInfo = styled.div`
     }
   }
   padding: 20px 0;
+`
+export const ChartWrapper = styled.div`
+  margin: 0 auto;
+  scale: 1;
 `

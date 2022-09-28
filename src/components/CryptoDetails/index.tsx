@@ -6,6 +6,7 @@ import { fetchCryptoDetail } from "../../store/reducers/actionCreator";
 import AddCryptoBlock from "../AddCryptoBlock";
 import Dialog from "../Dialog";
 import PlusIcon from "../Icons/PlusIcon";
+import CryptoHistoryChart from "./CryptoHistoryChart";
 import { CryptoDetailAddToPortfolioButton, CryptoDetailsHeader, CryptoDetailsInfo, CryptoDetailsWrapper, DetailsCpntainer } from "./style";
 
 type queryParams = {
@@ -15,11 +16,13 @@ type queryParams = {
 const CryptoDetails: React.FC = () => {
   const { cryptoDetail } = useAppSelector(state => state.cryptoReducer);
   const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
   const { id: idParam } = useParams<keyof queryParams>() as queryParams;
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchCryptoDetail(idParam))
+
   }, [dispatch, idParam])
 
   const dialogCryptoAddToggle = (): void => {
@@ -125,6 +128,7 @@ const CryptoDetails: React.FC = () => {
             </div>
 
           </CryptoDetailsInfo>
+          <CryptoHistoryChart history={cryptoDetail.history} />
         </CryptoDetailsWrapper> :
         <p>Загрузка. . .</p>}
       <Link to='/' className="back-to-main-anchor">Вернуться на главную</Link>

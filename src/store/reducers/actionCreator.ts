@@ -4,6 +4,7 @@ import { CryptoSlice } from "./crypto";
 
 const GET_CRYPTO_LIST_URL: string = 'https://api.coincap.io/v2/assets';
 const GET_CRYPTO_DETAIL_URL: string = 'https://api.coincap.io/v2/assets/';
+const getCryptoHistoryUrl = (cryptoName: string) => `https://api.coincap.io/v2/assets/${cryptoName}/history?interval=d1`;
 
 export const fetchCryptoList = () => async (dispatch: AppDispatch) => {
   try {
@@ -17,14 +18,28 @@ export const fetchCryptoList = () => async (dispatch: AppDispatch) => {
   }
 }
 
+export const fetchCryptoHistory = (cryptoName: string) => async (dispatch: AppDispatch) => {
+  try {
+    dispatch(CryptoSlice.actions.getCryptoHistoryPending);
+    const response = await axios.get<AxiosResponse>(getCryptoHistoryUrl(cryptoName));
+    dispatch(CryptoSlice.actions.getCryptoHistorySuccess(response.data.data));
+
+  } catch (e) {
+    let msg = (e as Error).message;
+    dispatch(CryptoSlice.actions.getCryptoHistoryFailure(msg));
+  }
+}
+
 export const fetchCryptoDetail = (id: string) => async (dispatch: AppDispatch) => {
   try {
     dispatch(CryptoSlice.actions.getCryptoDetailPending);
     const response = await axios.get<AxiosResponse>(GET_CRYPTO_DETAIL_URL + id);
     dispatch(CryptoSlice.actions.getCryptoDetailSuccess(response.data.data));
+    dispatch(fetchCryptoHistory(id))
 
   } catch (e) {
     let msg = (e as Error).message;
     dispatch(CryptoSlice.actions.getCryptoDetailFailure(msg));
   }
 }
+
