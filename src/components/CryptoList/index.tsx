@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { useAppSelector } from "../../hooks/redux";
+import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { ICrypto } from "../../models/ICrypto";
+import { CryptoSlice } from "../../store/reducers/crypto";
 import AddCryptoBlock from "../AddCryptoBlock";
 import Dialog from "../Dialog";
+import Pagination from "../Pagination";
 import CryptoListItem from "./CryptoListItem";
 import { CryptoTable, CryptoTableBody, CryptoTableHead, CryptoTableWrap, CryptoTableRow } from "./style";
 
@@ -29,8 +31,23 @@ const initialDialogOptions = {
 }
 
 const CryptoList: React.FC = () => {
-  const { cryptoList, isLoading } = useAppSelector(state => state.cryptoReducer);
+  const { cryptoList, isLoading, pagesCount } = useAppSelector(state => state.cryptoReducer);
   const [dialogOptions, setDialogOptions] = useState<IDialogOptions>(initialDialogOptions);
+  const [page, setPage] = useState<number>(1);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(CryptoSlice.actions.pageToggle(page));
+
+    window.scrollTo({
+      behavior: "smooth",
+      top: 0,
+    });
+  }, [dispatch, page])
+
+  const handlePaginationFlip = (value: number) => {
+    setPage(value);
+  }
 
   const dialogCryptoAddToggle = () => {
     setDialogOptions({
@@ -74,8 +91,8 @@ const CryptoList: React.FC = () => {
             {renderCryptoTableBody(cryptoList)}
           </CryptoTableBody>
         </CryptoTable>
-
       }
+      <Pagination pageCount={pagesCount} perPage={page} pageFlip={handlePaginationFlip} />
       <Dialog dialogName={`Добавление ${dialogOptions.crypto.name}`} isOpen={dialogOptions.isOpen} onClose={dialogCryptoAddToggle}>
         <AddCryptoBlock cryptoInfo={dialogOptions.crypto} onClose={dialogCryptoAddToggle} />
       </Dialog>

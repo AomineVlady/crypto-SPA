@@ -5,10 +5,12 @@ import { ICryptoPortfolioItem, IPortfolioState } from "../../models/ICryptoPortf
 import { addCryptoToPortfolio, removePortfolioItem } from "../../utils/checkPortfoli";
 import { getLSData, setLSData } from "../../utils/localStorage";
 
-const PORTFOLIO_LIST = 'portfolio'
-
+const PORTFOLIO_LIST: string = 'portfolio'
+const PAGE_SEP_COUNT: number = 20;
 interface ICryptoState {
+  cryptoListFull: ICrypto[];
   cryptoList: ICrypto[];
+  pagesCount: number,
   cryptoTopRate: ICrypto[];
   portfolio: IPortfolioState;
   cryptoDetail: ICryptoDetail;
@@ -17,7 +19,9 @@ interface ICryptoState {
 }
 
 const initialState: ICryptoState = {
+  cryptoListFull: [],
   cryptoList: [],
+  pagesCount: 0,
   cryptoTopRate: [],
   cryptoDetail: {
     isLoading: false,
@@ -55,8 +59,10 @@ export const CryptoSlice = createSlice({
     },
 
     getCryptoListSuccess(state, action: PayloadAction<ICrypto[]>) {
-      state.cryptoList = action.payload
+      state.cryptoListFull = action.payload;
+      state.pagesCount = action.payload.length / PAGE_SEP_COUNT
       state.cryptoTopRate = action.payload.slice(0, 3)
+      state.cryptoList = action.payload.slice(0, PAGE_SEP_COUNT);
       state.isLoading = false
     },
 
@@ -103,6 +109,13 @@ export const CryptoSlice = createSlice({
       const newPortfolioList = removePortfolioItem(state.portfolio.list, action.payload);
       setLSData(PORTFOLIO_LIST, newPortfolioList);
       state.portfolio.list = newPortfolioList
+    },
+
+    pageToggle(state, action: PayloadAction<number>) {
+      const sepTo = action.payload * PAGE_SEP_COUNT;
+      const sepFrom = sepTo - PAGE_SEP_COUNT;
+      state.isLoading = false;
+      state.cryptoList = state.cryptoListFull.slice(sepFrom, sepTo);
     }
   }
 })
