@@ -127,7 +127,7 @@ export const TopRate = styled.div`
   @media (max-width: ${size.tablet}) {
     padding: 5px 10px;
     margin: 0 2px;
-    display: none;
+    
     span {
       font-size: .7rem;
       color: #646464;
@@ -137,5 +137,9 @@ export const TopRate = styled.div`
     b{
       font-size: .8rem;
     }
+  }
+
+  @media (max-width: ${size.mobileM}){
+    display: none;
   }
 `

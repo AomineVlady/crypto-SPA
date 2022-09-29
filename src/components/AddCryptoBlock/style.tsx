@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { size } from "../../styles/global";
 
 export const CryptoInfoBlockWrap = styled.div`
   display: flex;
@@ -20,6 +21,7 @@ export const CryptoInfoBlock = styled.div`
 
   .add__input__field{
     margin-left: 20px;
+    white-space: nowrap;
   }
 
   .add__crypto__input{
@@ -36,6 +38,23 @@ export const CryptoInfoBlock = styled.div`
       border: 2px solid #000;
     }
   }
+
+  @media (max-width: ${size.tablet}) {
+    p{
+      font-size: 1.2rem;
+    }
+
+    .add__crypto__input{
+      padding: 8px 5px;
+      width: 60px;
+    }
+  }
+  @media (max-width: ${size.tablet}) {
+    p{
+      font-size: 1rem;
+    }
+  }
+
 `
 
 export const CryptoInfoBlockButton = styled.button`
@@ -59,6 +78,17 @@ export const CryptoInfoBlockButton = styled.button`
     color: #3d3d3d;
     background-color: #C3F8FF;  
     scale: .9;  
+  }
+
+  @media (max-width: ${size.tablet}) {
+    padding: 8px 15px;
+    font-size: .9rem;
+  }
+
+  @media (max-width: ${size.tablet}) {
+    padding: 6px 12px;
+    font-size: .8rem;
+
   }
 
 `
