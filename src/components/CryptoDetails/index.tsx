@@ -7,7 +7,7 @@ import AddCryptoBlock from "../AddCryptoBlock";
 import Dialog from "../Dialog";
 import PlusIcon from "../Icons/PlusIcon";
 import CryptoHistoryChart from "./CryptoHistoryChart";
-import { CryptoDetailAddToPortfolioButton, CryptoDetailsHeader, CryptoDetailsInfo, CryptoDetailsWrapper, DetailsCpntainer } from "./style";
+import { CryptoDetailAddToPortfolioButton, CryptoDetailsHeader, CryptoDetailsInfo, CryptoDetailsWrapper, DetailsContainer } from "./style";
 
 type queryParams = {
   id: string;
@@ -43,7 +43,7 @@ const CryptoDetails: React.FC = () => {
   } = cryptoDetail.crypto;
 
   return (
-    <DetailsCpntainer>
+    <DetailsContainer>
       {name ?
         <CryptoDetailsWrapper>
           <CryptoDetailsHeader>
@@ -135,7 +135,7 @@ const CryptoDetails: React.FC = () => {
       <Dialog dialogName={`Добавление ${name}`} isOpen={isDialogOpen} onClose={dialogCryptoAddToggle}>
         <AddCryptoBlock cryptoInfo={cryptoDetail.crypto} onClose={dialogCryptoAddToggle} />
       </Dialog>
-    </DetailsCpntainer>
+    </DetailsContainer>
   )
 }
 

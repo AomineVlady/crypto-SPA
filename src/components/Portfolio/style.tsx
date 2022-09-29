@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { size } from "../../styles/global";
 
 export const PortfolioContainer = styled.div`
   display: flex;
@@ -10,9 +11,17 @@ export const PortfolioContainer = styled.div`
   max-height: 400px;
   overflow-y: auto;
   overflow-x: hidden;
-
+  transition: all .3s ease;
   .empty__message{
     margin: auto;
+  }
+
+  @media (max-width: ${size.tablet}) {
+    min-width: 350px;
+  }
+
+  @media (max-width: ${size.mobileM}) {
+    min-width: 260px;
   }
 `;
 
@@ -23,6 +32,11 @@ export const PortfolioItemWrapp = styled.div`
   margin-bottom: 5px;
   width: 100%;
   padding: 5px 20px;
+  
+  @media (max-width: ${size.tablet}) {
+    padding: 5px 10px;
+
+  }
 `;
 
 export const PortfolioItemInfo = styled.div`
@@ -31,6 +45,12 @@ export const PortfolioItemInfo = styled.div`
   justify-content: space-between;
   width: 100%;
   padding-right: 20px;
+
+  @media (max-width: ${size.tablet}) {
+      padding-right: 10px;
+
+
+  }
 `;
 
 export const PortfolioItemButton = styled.button`

@@ -5,6 +5,7 @@ import { ICrypto } from '../../models/ICrypto';
 import { CryptoTableRow, TableAddButton } from './style'
 import { CryptoSlice } from "../../store/reducers/crypto";
 import PlusIcon from '../Icons/PlusIcon';
+import { round } from '../../utils/round';
 
 
 interface CryptoItemProps {
@@ -30,7 +31,7 @@ const CryptoListItem: React.FC<CryptoItemProps> = ({ crypto, onCryptoAdd }) => {
     <CryptoTableRow onClick={() => onRowClickHandler()}>
       <td>{crypto.rank}</td>
       <td>{crypto.name}</td>
-      <td>{crypto.priceUsd}$</td>
+      <td>{round(parseFloat(crypto.priceUsd), 5)}$</td>
       <td><TableAddButton onClick={onAddToPortfolioHandler} title="Добавить в портфель"><PlusIcon /></TableAddButton></td>
     </CryptoTableRow>
   )

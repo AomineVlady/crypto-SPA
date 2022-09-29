@@ -26,7 +26,7 @@ const CryptoHistoryChart: React.FC<CryptoHistoryChartProps> = ({ history }) => {
   return (
     <ChartWrapper>
       <VictoryChart
-        width={1050}
+        width={800}
         height={500}
         containerComponent={
           <VictoryZoomContainer responsive={false}

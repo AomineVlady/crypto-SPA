@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { size } from "../../styles/global";
 
 export const DialogOverlay = styled.div`
   position: fixed;
@@ -23,6 +24,9 @@ export const DialogWindow = styled.div`
   z-index: 999;
   cursor: auto;
 
+  @media (max-width: ${size.tablet}) {
+    padding: 10px;
+  }
 `
 
 export const DialogHeader = styled.div`
