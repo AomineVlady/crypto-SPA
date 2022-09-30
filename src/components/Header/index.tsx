@@ -1,15 +1,9 @@
 import React from "react";
 import { useAppSelector } from "../../hooks/redux";
-import { ICryptoPortfolioItem } from "../../models/ICryptoPortfolio";
-import { round } from "../../utils/round";
+import { round } from "../../utils/calcs";
+import { getBankDiffText } from "../../utils/portfolioInfo";
 import PortfolioIcon from "../Icons/PortfolioIcon";
 import { HeaderColumn, HeaderIconButton, HeaderWrap, TopRate } from "./style";
-
-const portfolioCashSum = (list: ICryptoPortfolioItem[]): number => {
-  return list.reduce((firstValue, secondValue) =>
-    firstValue + secondValue.count * parseFloat(secondValue.crypto.priceUsd),
-    0);
-}
 
 const charsAfterСomma = 3;
 
@@ -25,8 +19,18 @@ const Header: React.FC<HeaderProps> = ({ onPortfolioOpen }) => {
       <span>{item.name}</span>
       <b>{round(parseFloat(item.priceUsd), charsAfterСomma)}$</b>
     </TopRate>
-  )
+  );
 
+  const renderPortfolioBankInfo = () => {
+    const { value, diff } = portfolio.bank;
+    const priceDiffText: string = `${getBankDiffText(diff.price)}$`;
+    const percentDiffText: string = `(${getBankDiffText(diff.percentage)}%)`;
+    const isPositive = diff.price >= 0 && diff.percentage >= 0;
+
+    return <p className="portfolio-bank">{round(value, 3)} USD
+      <span className={`bank__info ${isPositive ? 'info-positive' : 'info-negative'}`}> {priceDiffText} {percentDiffText} </span>
+    </p>
+  }
 
   return (
     <HeaderWrap>
@@ -34,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ onPortfolioOpen }) => {
         {renderTopRate()}
       </HeaderColumn>
       <HeaderColumn>
-        <p className="portfolio-bank">{round(portfolioCashSum(portfolio.list), 3)}$</p>
+        {renderPortfolioBankInfo()}
         <HeaderIconButton title="Портфель" onClick={onPortfolioOpen}>
           <PortfolioIcon />
         </HeaderIconButton>

@@ -28,17 +28,39 @@ export const HeaderColumn = styled.div`
   
   .portfolio-bank{
     font-size: 1rem;
+    margin-left: 10px;
+  }
+
+  .bank__info{
+    color: #6e6e6e;
+    font-size: .8rem;
+  }
+
+  .info-positive{
+    color: #009b05;
+  }
+
+  .info-negative{
+    color: #970000;
   }
 
   @media (max-width: ${size.laptop}) {
     .portfolio-bank{
       font-size: 0.9rem;
     }
+
+    .bank__info{
+      font-size: .7rem;
+    }
   }
 
   @media (max-width: ${size.tablet}) {
     .portfolio-bank{
       font-size: 0.8rem;
+    }
+    
+    .bank__info{
+      font-size: .6rem;
     }
   }
 `;

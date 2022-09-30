@@ -13,11 +13,11 @@ export const addCryptoToPortfolio = (list: ICryptoPortfolioItem[], cryptoItem: I
           count: item.count + cryptoItem.count
         }
       }
-      return item
+      return item;
     });
   } else {
-    let newPortfolioList = [...list];
-    newPortfolioList.push(cryptoItem)
+    const newPortfolioList = [...list];
+    newPortfolioList.push(cryptoItem);
 
     return newPortfolioList;
   }

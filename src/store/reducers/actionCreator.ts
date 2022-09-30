@@ -9,8 +9,9 @@ const getCryptoHistoryUrl = (cryptoName: string) => `https://api.coincap.io/v2/a
 export const fetchCryptoList = () => async (dispatch: AppDispatch) => {
   try {
     dispatch(CryptoSlice.actions.getCryptoListPending);
-    const response = await axios.get<AxiosResponse>(GET_CRYPTO_LIST_URL);
-    dispatch(CryptoSlice.actions.getCryptoListSuccess(response.data.data));
+    const { data } = await axios.get<AxiosResponse>(GET_CRYPTO_LIST_URL);
+    dispatch(CryptoSlice.actions.getCryptoListSuccess(data.data));
+    dispatch(CryptoSlice.actions.updatePortfolio(data.data));
 
   } catch (e) {
     let msg = (e as Error).message;

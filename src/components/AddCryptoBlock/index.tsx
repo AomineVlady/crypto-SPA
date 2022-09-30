@@ -23,9 +23,15 @@ const AddCryptoBlock: React.FC<AddCryptoBlockProps> = ({ cryptoInfo, onClose }) 
     if (totalCount > 0) {
       dispatch(CryptoSlice.actions.addToPortfolio({
         crypto: cryptoInfo,
+        diff:
+        {
+          price: 0,
+          percentage: 0,
+        },
         count: totalCount
       }))
     }
+
     onClose();
   }
 

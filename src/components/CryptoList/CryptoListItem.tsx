@@ -5,7 +5,7 @@ import { ICrypto } from '../../models/ICrypto';
 import { CryptoTableRow, TableAddButton } from './style'
 import { CryptoSlice } from "../../store/reducers/crypto";
 import PlusIcon from '../Icons/PlusIcon';
-import { round } from '../../utils/round';
+import { round } from '../../utils/calcs';
 
 
 interface CryptoItemProps {

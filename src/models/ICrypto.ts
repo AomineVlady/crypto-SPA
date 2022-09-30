@@ -1,3 +1,5 @@
+import { ICryptoPriceDiff } from "./ICryptoPriceDiff";
+
 export interface ICrypto {
   id: string;
   rank: string;
@@ -10,4 +12,6 @@ export interface ICrypto {
   priceUsd: string;
   changePercent24Hr: string;
   vwap24Hr: string;
+  oldPrice?: string;
+  diff?: ICryptoPriceDiff;
 }

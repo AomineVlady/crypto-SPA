@@ -2,11 +2,17 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICrypto } from "../../models/ICrypto"
 import { ICryptoDetail } from "../../models/ICryptoDetail";
 import { ICryptoPortfolioItem, IPortfolioState } from "../../models/ICryptoPortfolio"
+import { getPricesDifferenceCalc, portfolioCashSum } from "../../utils/calcs";
 import { addCryptoToPortfolio, removePortfolioItem } from "../../utils/checkPortfoli";
 import { getLSData, setLSData } from "../../utils/localStorage";
+import { portfolioUpdateList } from "../../utils/portfolioUpdateList";
 
-const PORTFOLIO_LIST: string = 'portfolio'
+const PORTFOLIO_LIST: string = 'portfolioList'
+const PORTFOLIO_BANK: string = 'portfolioBank'
+
 const PAGE_SEP_COUNT: number = 20;
+const LSPortfolioList = getLSData(PORTFOLIO_LIST) || [];
+const LSPortfolioBank = getLSData(PORTFOLIO_BANK) || 0;
 interface ICryptoState {
   cryptoListFull: ICrypto[];
   cryptoList: ICrypto[];
@@ -41,8 +47,16 @@ const initialState: ICryptoState = {
     },
     history: []
   },
+
   portfolio: {
-    list: getLSData(PORTFOLIO_LIST),
+    list: LSPortfolioList,
+    bank: {
+      value: LSPortfolioBank,
+      diff: {
+        price: 0,
+        percentage: 0,
+      },
+    },
     isLoading: false,
     error: '',
   },
@@ -99,16 +113,38 @@ export const CryptoSlice = createSlice({
       state.cryptoDetail.crypto = { ...initialState.cryptoDetail.crypto }
     },
 
+    updatePortfolio(state, action: PayloadAction<ICrypto[]>) {
+      const newList = portfolioUpdateList(action.payload, initialState.portfolio.list);
+      const currentBank = initialState.portfolio.bank.value;
+      const newBank = portfolioCashSum(newList);
+      state.portfolio.list = newList;
+      state.portfolio.bank.diff = getPricesDifferenceCalc(currentBank, newBank);
+      state.portfolio.bank.value = newBank;
+
+      setLSData(PORTFOLIO_LIST, newList);
+      setLSData(PORTFOLIO_BANK, newBank);
+    },
+
     addToPortfolio(state, action: PayloadAction<ICryptoPortfolioItem>) {
       const newPortfolioList = addCryptoToPortfolio(state.portfolio.list, action.payload);
+      const newPortfolioBank = portfolioCashSum(newPortfolioList);
+
       state.portfolio.list = newPortfolioList;
+      state.portfolio.bank.value = newPortfolioBank;
+
       setLSData(PORTFOLIO_LIST, newPortfolioList);
+      setLSData(PORTFOLIO_BANK, newPortfolioBank);
     },
 
     removeFromPortfolio(state, action: PayloadAction<string>) {
       const newPortfolioList = removePortfolioItem(state.portfolio.list, action.payload);
+      const newPortfolioBank = portfolioCashSum(newPortfolioList);
+
+      state.portfolio.list = newPortfolioList;
+      state.portfolio.bank.value = newPortfolioBank;
+
       setLSData(PORTFOLIO_LIST, newPortfolioList);
-      state.portfolio.list = newPortfolioList
+      setLSData(PORTFOLIO_BANK, newPortfolioBank);
     },
 
     pageToggle(state, action: PayloadAction<number>) {
