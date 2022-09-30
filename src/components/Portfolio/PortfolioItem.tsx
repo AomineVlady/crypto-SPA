@@ -2,7 +2,7 @@ import React from 'react';
 import { useAppDispatch } from '../../hooks/redux';
 import { ICryptoPortfolioItem } from '../../models/ICryptoPortfolio';
 import { CryptoSlice } from '../../store/reducers/crypto';
-import { round } from '../../utils/round';
+import { round } from '../../utils/calcs';
 import MinusIcon from '../Icons/MinusIcon';
 import { PortfolioItemButton, PortfolioItemInfo, PortfolioItemWrapp } from './style';
 
