@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
 import { ICrypto } from '../../models/ICrypto';
 import { CryptoTableRow, TableAddButton } from './style'
@@ -10,16 +10,17 @@ import { round } from '../../utils/calcs';
 
 interface CryptoItemProps {
   crypto: ICrypto,
-  onCryptoAdd: (crypto: ICrypto) => void
+  onCryptoAdd: (crypto: ICrypto) => void,
 }
 
 const CryptoListItem: React.FC<CryptoItemProps> = ({ crypto, onCryptoAdd }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const onRowClickHandler = () => {
     dispatch(CryptoSlice.actions.clearCryptoDetailInfo());
-    navigate('/' + crypto.id);
+    navigate(`${location.pathname}/${crypto.id}`);
   }
 
   const onAddToPortfolioHandler = (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
