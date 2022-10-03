@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/crypto-SPA/static/css/main.6b5ec2ae.css",
-    "main.js": "/crypto-SPA/static/js/main.b77b8a85.js",
+    "main.js": "/crypto-SPA/static/js/main.971ef423.js",
     "static/media/OpenSans-Bold.ttf": "/crypto-SPA/static/media/OpenSans-Bold.dfda0d04b1e6e74eb051.ttf",
     "static/media/OpenSans-Light.ttf": "/crypto-SPA/static/media/OpenSans-Light.1fc8a45c2ca9eae91b75.ttf",
     "static/media/OpenSans-Regular.ttf": "/crypto-SPA/static/media/OpenSans-Regular.1c0a329c683d91fc91aa.ttf",
@@ -10,10 +10,10 @@
     "static/media/OpenSans-Regular.woff": "/crypto-SPA/static/media/OpenSans-Regular.229564cad5daae8ae40b.woff",
     "index.html": "/crypto-SPA/index.html",
     "main.6b5ec2ae.css.map": "/crypto-SPA/static/css/main.6b5ec2ae.css.map",
-    "main.b77b8a85.js.map": "/crypto-SPA/static/js/main.b77b8a85.js.map"
+    "main.971ef423.js.map": "/crypto-SPA/static/js/main.971ef423.js.map"
   },
   "entrypoints": [
     "static/css/main.6b5ec2ae.css",
-    "static/js/main.b77b8a85.js"
+    "static/js/main.971ef423.js"
   ]
 }
