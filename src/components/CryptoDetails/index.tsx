@@ -22,7 +22,6 @@ const CryptoDetails: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchCryptoDetail(idParam))
-
   }, [dispatch, idParam])
 
   const dialogCryptoAddToggle = (): void => {
