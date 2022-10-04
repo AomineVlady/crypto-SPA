@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { ICrypto } from "../../models/ICrypto";
-import { CryptoSlice } from "../../store/reducers/crypto";
+import { fetchCryptoList } from "../../store/reducers/actionCreator";
 import AddCryptoBlock from "../AddCryptoBlock";
 import Dialog from "../Dialog";
 import Pagination from "../Pagination";
@@ -37,7 +37,7 @@ const CryptoList: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(CryptoSlice.actions.pageToggle(page));
+    dispatch(fetchCryptoList(page));
 
     window.scrollTo({
       behavior: "smooth",

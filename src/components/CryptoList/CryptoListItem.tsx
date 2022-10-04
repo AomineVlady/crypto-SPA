@@ -20,7 +20,7 @@ const CryptoListItem: React.FC<CryptoItemProps> = ({ crypto, onCryptoAdd }) => {
 
   const onRowClickHandler = () => {
     dispatch(CryptoSlice.actions.clearCryptoDetailInfo());
-    navigate(`${location.pathname}/${crypto.id}`);
+    navigate(`${location.pathname}${crypto.id}`);
   }
 
   const onAddToPortfolioHandler = (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {

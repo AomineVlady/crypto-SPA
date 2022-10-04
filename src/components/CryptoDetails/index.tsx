@@ -130,7 +130,7 @@ const CryptoDetails: React.FC = () => {
           <CryptoHistoryChart history={cryptoDetail.history} />
         </CryptoDetailsWrapper> :
         <p>Загрузка. . .</p>}
-      <Link to='/' className="back-to-main-anchor">Вернуться на главную</Link>
+      <Link to='/crypto-SPA/' className="back-to-main-anchor">Вернуться на главную</Link>
       <Dialog dialogName={`Добавление ${name}`} isOpen={isDialogOpen} onClose={dialogCryptoAddToggle}>
         <AddCryptoBlock cryptoInfo={cryptoDetail.crypto} onClose={dialogCryptoAddToggle} />
       </Dialog>

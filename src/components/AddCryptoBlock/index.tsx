@@ -17,7 +17,8 @@ const AddCryptoBlock: React.FC<AddCryptoBlockProps> = ({ cryptoInfo, onClose }) 
     setCount(e.target.value)
   }
 
-  const onAddHandler = () => {
+  const onAddSubmitHandler = (e: React.SyntheticEvent) => {
+    e.preventDefault();
     const totalCount = parseFloat(count);
 
     if (totalCount > 0) {
@@ -36,17 +37,17 @@ const AddCryptoBlock: React.FC<AddCryptoBlockProps> = ({ cryptoInfo, onClose }) 
   }
 
   return (
-    <CryptoInfoBlockWrap>
+    <CryptoInfoBlockWrap onSubmit={onAddSubmitHandler}>
       <CryptoInfoBlock>
         <p>{cryptoInfo.name}</p>
         <div className='add__input__field'>
           <span>Кол-во</span>
-          <input type="number" className='add__crypto__input' value={count} onChange={onChangeHandler} />
+          <input type="number" step='any' className='add__crypto__input' value={count} onChange={onChangeHandler} />
         </div>
 
       </CryptoInfoBlock>
 
-      <CryptoInfoBlockButton onClick={onAddHandler}>Добавить</CryptoInfoBlockButton>
+      <CryptoInfoBlockButton type='submit' value="Добавить" />
     </CryptoInfoBlockWrap>
   )
 }

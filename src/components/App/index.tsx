@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
-import { fetchCryptoList } from '../../store/reducers/actionCreator';
+import { fetchCryptoTopRateList, fetchPortfolioList } from '../../store/reducers/actionCreator';
 import CryptoDetails from '../CryptoDetails';
 import CryptoList from '../CryptoList';
 import Dialog from '../Dialog';
 import Header from '../Header';
 import Portfolio from '../Portfolio';
 import { AppContainer, Main } from './style';
+
+const TOP_RATE_LIMIT = 3;
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +20,8 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchCryptoList())
+    dispatch(fetchCryptoTopRateList(TOP_RATE_LIMIT));
+    dispatch(fetchPortfolioList());
   }, [dispatch])
 
   return (

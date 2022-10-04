@@ -14,7 +14,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ onPortfolioOpen }) => {
   const { cryptoTopRate, portfolio } = useAppSelector(state => state.cryptoReducer);
 
-  const renderTopRate = () => cryptoTopRate.map(item =>
+  const renderTopRate = () => cryptoTopRate.list.map(item =>
     <TopRate key={item.name}>
       <span>{item.name}</span>
       <b>{round(parseFloat(item.priceUsd), charsAfterСomma)}$</b>
@@ -32,10 +32,14 @@ const Header: React.FC<HeaderProps> = ({ onPortfolioOpen }) => {
     </p>
   }
 
+  const { isLoading } = cryptoTopRate;
+
   return (
     <HeaderWrap>
       <HeaderColumn>
-        {renderTopRate()}
+        {isLoading ?
+          <p>Загрузка...</p>
+          : renderTopRate()}
       </HeaderColumn>
       <HeaderColumn>
         {renderPortfolioBankInfo()}
