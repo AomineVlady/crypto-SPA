@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { size } from "../../styles/global";
 
-export const CryptoInfoBlockWrap = styled.div`
+export const CryptoInfoBlockWrap = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,7 +57,7 @@ export const CryptoInfoBlock = styled.div`
 
 `
 
-export const CryptoInfoBlockButton = styled.button`
+export const CryptoInfoBlockButton = styled.input`
   background-color: #C3F8FF;
   border-radius: 10px;
   padding: 10px 20px;

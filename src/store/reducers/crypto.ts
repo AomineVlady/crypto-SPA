@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICrypto } from "../../models/ICrypto"
 import { ICryptoDetail } from "../../models/ICryptoDetail";
 import { ICryptoPortfolioItem, IPortfolioState } from "../../models/ICryptoPortfolio"
+import { ICryptoTopRateList } from "../../models/ICryptoTopRateList";
 import { getPricesDifferenceCalc, portfolioCashSum } from "../../utils/calcs";
 import { addCryptoToPortfolio, removePortfolioItem } from "../../utils/checkPortfoli";
 import { getLSData, setLSData } from "../../utils/localStorage";
@@ -10,14 +11,12 @@ import { portfolioUpdateList } from "../../utils/portfolioUpdateList";
 const PORTFOLIO_LIST: string = 'portfolioList'
 const PORTFOLIO_BANK: string = 'portfolioBank'
 
-const PAGE_SEP_COUNT: number = 20;
 const LSPortfolioList = getLSData(PORTFOLIO_LIST) || [];
 const LSPortfolioBank = getLSData(PORTFOLIO_BANK) || 0;
 interface ICryptoState {
-  cryptoListFull: ICrypto[];
   cryptoList: ICrypto[];
   pagesCount: number,
-  cryptoTopRate: ICrypto[];
+  cryptoTopRate: ICryptoTopRateList;
   portfolio: IPortfolioState;
   cryptoDetail: ICryptoDetail;
   isLoading: boolean;
@@ -25,10 +24,13 @@ interface ICryptoState {
 }
 
 const initialState: ICryptoState = {
-  cryptoListFull: [],
   cryptoList: [],
-  pagesCount: 0,
-  cryptoTopRate: [],
+  pagesCount: 5,
+  cryptoTopRate: {
+    list: [],
+    isLoading: false,
+    error: '',
+  },
   cryptoDetail: {
     isLoading: false,
     error: '',
@@ -69,20 +71,31 @@ export const CryptoSlice = createSlice({
   initialState,
   reducers: {
     getCryptoListPending(state) {
-      state.isLoading = true
+      state.isLoading = true;
     },
 
     getCryptoListSuccess(state, action: PayloadAction<ICrypto[]>) {
-      state.cryptoListFull = action.payload;
-      state.pagesCount = action.payload.length / PAGE_SEP_COUNT
-      state.cryptoTopRate = action.payload.slice(0, 3)
-      state.cryptoList = action.payload.slice(0, PAGE_SEP_COUNT);
-      state.isLoading = false
+      state.cryptoList = action.payload;
+      state.isLoading = false;
     },
 
     getCryptoListFailure(state, action: PayloadAction<string>) {
       state.isLoading = false;
-      state.error = action.payload
+      state.error = action.payload;
+    },
+
+    getCryptoTopRateListPending(state) {
+      state.cryptoTopRate.isLoading = true;
+    },
+
+    getCryptoTopRateListSuccess(state, action: PayloadAction<ICrypto[]>) {
+      state.cryptoTopRate.list = action.payload;
+      state.cryptoTopRate.isLoading = false;
+    },
+
+    getCryptoTopRateListFailure(state, action: PayloadAction<string>) {
+      state.cryptoTopRate.isLoading = false;
+      state.cryptoTopRate.error = action.payload;
     },
 
     getCryptoDetailPending(state) {
@@ -90,11 +103,13 @@ export const CryptoSlice = createSlice({
     },
 
     getCryptoDetailSuccess(state, action: PayloadAction<ICrypto>) {
-      state.cryptoDetail.crypto = action.payload
+      state.cryptoDetail.crypto = action.payload;
+      state.cryptoDetail.isLoading = false;
     },
 
     getCryptoDetailFailure(state, action: PayloadAction<string>) {
-      state.cryptoDetail.error = action.payload
+      state.cryptoDetail.error = action.payload;
+      state.cryptoDetail.isLoading = false;
     },
 
     getCryptoHistoryPending(state) {
@@ -102,21 +117,33 @@ export const CryptoSlice = createSlice({
     },
 
     getCryptoHistorySuccess(state, action: PayloadAction<[]>) {
-      state.cryptoDetail.history = action.payload
+      state.cryptoDetail.history = action.payload;
+      state.cryptoDetail.isLoading = false;
     },
 
     getCryptoHistoryFailure(state, action: PayloadAction<string>) {
-      state.cryptoDetail.error = action.payload
+      state.cryptoDetail.error = action.payload;
+      state.cryptoDetail.isLoading = false;
     },
 
     clearCryptoDetailInfo(state) {
       state.cryptoDetail.crypto = { ...initialState.cryptoDetail.crypto }
     },
 
+    portfolioPending(state) {
+      state.portfolio.isLoading = true;
+    },
+
+    portfolioFailure(state, action: PayloadAction<string>) {
+      state.portfolio.error = action.payload;
+      state.portfolio.isLoading = false;
+    },
+
     updatePortfolio(state, action: PayloadAction<ICrypto[]>) {
       const newList = portfolioUpdateList(action.payload, initialState.portfolio.list);
       const currentBank = initialState.portfolio.bank.value;
       const newBank = portfolioCashSum(newList);
+      state.portfolio.isLoading = false;
       state.portfolio.list = newList;
       state.portfolio.bank.diff = getPricesDifferenceCalc(currentBank, newBank);
       state.portfolio.bank.value = newBank;
@@ -146,13 +173,6 @@ export const CryptoSlice = createSlice({
       setLSData(PORTFOLIO_LIST, newPortfolioList);
       setLSData(PORTFOLIO_BANK, newPortfolioBank);
     },
-
-    pageToggle(state, action: PayloadAction<number>) {
-      const sepTo = action.payload * PAGE_SEP_COUNT;
-      const sepFrom = sepTo - PAGE_SEP_COUNT;
-      state.isLoading = false;
-      state.cryptoList = state.cryptoListFull.slice(sepFrom, sepTo);
-    }
   }
 })
 

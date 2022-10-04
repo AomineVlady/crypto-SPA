@@ -1,5 +1,4 @@
 import React from "react";
-import { useAppSelector } from "../../hooks/redux";
 import PaginationItem from "./PaginationItem";
 import { PaginationWrapper } from "./style";
 
@@ -11,7 +10,6 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({ perPage, pageCount, pageFlip }) => {
-  const { cryptoListFull } = useAppSelector(state => state.cryptoReducer);
 
   const paginationList = Array.from({ length: pageCount }, (v, k) => k + 1);
 
@@ -25,11 +23,9 @@ const Pagination: React.FC<PaginationProps> = ({ perPage, pageCount, pageFlip })
   )
 
   return (
-    cryptoListFull ?
-      <PaginationWrapper>
-        {renderPaginationList()}
-      </PaginationWrapper>
-      : null
+    <PaginationWrapper>
+      {renderPaginationList()}
+    </PaginationWrapper>
   )
 }
 
