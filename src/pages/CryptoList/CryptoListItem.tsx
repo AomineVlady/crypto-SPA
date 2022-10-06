@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../hooks/redux';
 import { ICrypto } from '../../models/ICrypto';
 import { CryptoTableRow, TableAddButton } from './style'
 import { CryptoSlice } from "../../store/reducers/crypto";
-import PlusIcon from '../Icons/PlusIcon';
+import PlusIcon from '../../components/Icons/PlusIcon';
 import { round } from '../../utils/calcs';
 
 

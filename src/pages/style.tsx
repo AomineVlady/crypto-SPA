@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { size } from "../../styles/global";
+import { size } from "../styles/global";
 
 export const AppContainer = styled.div`
   min-height: 100vh;

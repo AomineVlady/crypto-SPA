@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks/redux';
-import { fetchCryptoTopRateList, fetchPortfolioList } from '../../store/reducers/actionCreator';
-import CryptoDetails from '../CryptoDetails';
-import CryptoList from '../CryptoList';
-import Dialog from '../Dialog';
-import Header from '../Header';
-import Portfolio from '../Portfolio';
+import { useAppDispatch } from '../hooks/redux';
+import { fetchCryptoTopRateList, fetchPortfolioList } from '../store/reducers/actionCreator';
+import CryptoDetails from './CryptoDetails';
+import CryptoList from './CryptoList';
+import Dialog from '../components/Dialog';
+import Header from '../components/Header';
+import Portfolio from '../components/Portfolio';
 import { AppContainer, Main } from './style';
 
 const TOP_RATE_LIMIT = 3;
