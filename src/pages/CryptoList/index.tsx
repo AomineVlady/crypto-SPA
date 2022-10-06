@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { ICrypto } from "../../models/ICrypto";
 import { fetchCryptoList } from "../../store/reducers/actionCreator";
-import AddCryptoBlock from "../AddCryptoBlock";
-import Dialog from "../Dialog";
-import Pagination from "../Pagination";
+import AddCryptoBlock from "../../components/AddCryptoBlock";
+import Dialog from "../../components/Dialog";
+import Pagination from "../../components/Pagination";
 import CryptoListItem from "./CryptoListItem";
 import { CryptoTable, CryptoTableBody, CryptoTableHead, CryptoTableWrap, CryptoTableRow } from "./style";
 

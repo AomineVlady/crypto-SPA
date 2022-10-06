@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { useParams, } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { fetchCryptoDetail } from "../../store/reducers/actionCreator";
-import AddCryptoBlock from "../AddCryptoBlock";
-import Dialog from "../Dialog";
-import PlusIcon from "../Icons/PlusIcon";
+import AddCryptoBlock from "../../components/AddCryptoBlock";
+import Dialog from "../../components/Dialog";
+import PlusIcon from "../../components/Icons/PlusIcon";
 import CryptoHistoryChart from "./CryptoHistoryChart";
 import { CryptoDetailAddToPortfolioButton, CryptoDetailsHeader, CryptoDetailsInfo, CryptoDetailsWrapper, DetailsContainer } from "./style";
 
